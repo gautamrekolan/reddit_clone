@@ -1,0 +1,9 @@
+<%# content %>
+<div id="stories">
+    <%= render :partial => 'story', :collection => @stories %>
+</div>
+
+<%# sidebar %>
+<% content_for :sidebar do %>
+  <%= link_to 'New Story', new_story_path %>
+<% end %>

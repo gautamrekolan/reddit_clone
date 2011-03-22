@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>RedditClone</title>
+  <title>reddit_clone</title>
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
 </head>
 <body>
-
-<%= yield %>
+  <div id="header">
+    <div id="quick_links"></div>
+    <div id="logo"><%= link_to "reddit_clone", root_url %></div>
+    <div id="user_nav">
+      <% if current_user %>
+        <span class="username"><%= current_user.username %></span> | 
+        <%= link_to "edit profile", edit_user_path(current_user.id) %> | 
+        <%= link_to "logout", logout_path %>
+      <% else %>
+        <%= link_to "sign up", new_user_path %> |
+         <%= link_to "login", login_path %>
+      <% end %>
+    </div>
+  </div>
+  <div id="page">
+    <div id="sidebar">
+      <%= yield :sidebar %>
+    </div>
+    <div id="content">
+      <% flash.each do |key, value| %>
+        <%= content_tag(:div, value, :class => "flash #{key}") %>
+      <% end %>
+      <%= yield %>
+    </div>
+  </div>
 
 </body>
 </html>
+ 

@@ -1,4 +1,13 @@
 RedditClone::Application.routes.draw do
+  resources :stories
+  resources :users
+  resources :user_sessions
+  
+  match 'login'  => 'user_sessions#new'
+  match 'logout' => 'user_sessions#destroy'
+
+  root :to => "stories#index"
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -55,4 +64,5 @@ RedditClone::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
+  
 end
