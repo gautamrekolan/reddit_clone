@@ -28,6 +28,8 @@ class Ability
     can :destroy,  Story, :user_id => user.id
     
     can :update,   User, :id => user.id
+    
+    can :vote,     Story
   end
   
   def guest(user)

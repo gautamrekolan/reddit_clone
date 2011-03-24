@@ -60,4 +60,16 @@ class StoriesController < ApplicationController
   end
   
   
+  def upvote_story
+    @story.score += 1
+    @story.save
+    @story.user.karma += 1
+    @story.user.save
+    
+    respond_to do |format|
+      format.html { redirect_to @story }
+      format.js
+    end
+  end
+  
 end

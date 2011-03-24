@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110322215300) do
+ActiveRecord::Schema.define(:version => 20110324205223) do
 
   create_table "stories", :force => true do |t|
     t.string   "title"
@@ -34,5 +34,15 @@ ActiveRecord::Schema.define(:version => 20110322215300) do
     t.string   "role"
     t.integer  "karma",             :default => 1
   end
+
+  create_table "votes", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "story_id",   :null => false
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["user_id", "story_id"], :name => "index_votes_on_user_id_and_story_id", :unique => true
 
 end

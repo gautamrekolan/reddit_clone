@@ -1,6 +1,11 @@
 <div class="story">
   <div class="scoring">
-    <%= link_to "\u25B2", "#", :class => "upvote" %>
+    <%= link_to "\u25B2",
+                upvote_url(story),
+                :method     => :put,
+                :remote     => true,
+                :alt        => "Upvote"
+    %>    
     <div class="score"><%= story.score %></div>
     <%= link_to "\u25BC", "#", :class => "downvote" %>
   </div>

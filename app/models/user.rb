@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   ROLES = %w[admin user]
     
   has_many :stories, :dependent => :nullify
+  has_many :votes
   
   
   
@@ -15,11 +16,5 @@ class User < ActiveRecord::Base
   def is?(role)
     role.to_sym == role
   end
-  
-  def upvote_story(story)
-    story.score += 1
-    story.save
-    story.user.karma += 1
-    story.user.save
-  end
+
 end

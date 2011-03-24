@@ -6,5 +6,7 @@ class Story < ActiveRecord::Base
 
    # associations
    belongs_to :user
+   
+   has_many :votes
 
 end
