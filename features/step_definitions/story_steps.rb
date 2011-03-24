@@ -1,3 +1,30 @@
+# -------------------------------------------------
+#  Classes and methods for the step definitions
+# -------------------------------------------------
+
+def make_story(title, link, options = {})
+  options[:user] ||= "doesnt_matter"
+  steps %Q{
+    Given I am logged in as "#{options[:user]}"
+      And I am on the new story page
+      And I fill in the following:
+        | Title     | #{title}   |
+        | Link      | #{link}    |
+      And I press "Create Story"
+      And I logout
+  }
+  @story = Story.find_by_link(link)
+  if ! options[:created_at].blank?
+    @story.created_at = Time.parse(options[:created_at]).gmtime
+    @story.save
+  end
+end
+
+
+# -------------------------------------------------
+#  Step definitions
+# -------------------------------------------------
+
 # seeing a list of stories
 
 Given /^there are (\d+) stories$/ do |story_count|
@@ -16,56 +43,9 @@ Then /^I should see (\d+) stories sorted by "([^"]*)"$/ do |story_count, sorted_
 end
 
 Given /^the following stories exist:$/ do |stories_table|
-  stories_table.hashes.each do |story|
-      steps %Q{
-        Given there is a story
-          And the story has title "#{story['title']}"
-          And the story links to "#{story['link']}"
-          And the story was submitted by "#{story['user']}"
-          And the story was created at "#{story['created_at']}"
-      }
+  @stories = stories_table.hashes.map do |story|
+    make_story(story['title'], story['link'], {:user => story['user'], :created_at => story['created_at']})
   end
-end
-
-
-# making a single story and setting attributes
-
-Given /^there is a story$/ do
-  @story = Story.create()
-end
-
-Given /^the story has title "([^"]*)"$/ do |title|
-  @story.title = title
-  @story.save
-end
-
-Given /^the story links to "([^"]*)"$/ do |link|
-  @story.link = link
-  @story.save
-end
-
-Given /^the current time is "([^"]*)"$/ do |time|
-  Timecop.freeze Time.parse(time)
-end
-
-Given /^the story was submitted by "([^"]*)"$/ do |user|
-  existing_user = User.find_by_username(user)
-  if existing_user.nil?
-    submitting_user = User.create(:username => user,             
-                                  :email => "#{user}@test.com",
-                                  :password => "test123", 
-                                  :password_confirmation => "test123", 
-                                  :role => 'user')
-  else
-    submitting_user = existing_user
-  end
-  @story.user = submitting_user
-  @story.save
-end
-
-Given /^the story was created at "([^"]*)"$/ do |time|
-  @story.created_at = Time.parse(time).gmtime
-  @story.save
 end
 
 

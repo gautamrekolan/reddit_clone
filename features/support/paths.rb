@@ -18,7 +18,7 @@ module NavigationHelpers
     #     user_profile_path(User.find_by_login($1))
 
     when /edit user page/
-      edit_user_path @user
+      edit_user_path @current_user
 
     else
       begin

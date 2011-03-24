@@ -12,7 +12,7 @@
     <div id="logo"><%= link_to "reddit_clone", root_url %></div>
     <div id="user_nav">
       <% if current_user %>
-        <span class="username"><%= current_user.username %></span> | 
+        <span class="username"><%= current_user.username %><span class="karma_wrap"> (<span class="karma"><%= current_user.karma %></span>)</span></span> | 
         <%= link_to "edit profile", edit_user_path(current_user.id) %> | 
         <%= link_to "logout", logout_path %>
       <% else %>

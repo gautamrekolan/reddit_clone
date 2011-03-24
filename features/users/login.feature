@@ -4,7 +4,9 @@ Feature: User login
   So that I may participate on the site
   
   Background:
-    Given site has a user "Test_User" with password "pass123"
+    Given the following users exist:
+      | username  | password |
+      | Test_User | pass123  |
     
   Scenario: Guest logs in as a user
     Given I am not logged in
@@ -17,8 +19,8 @@ Feature: User login
       And I should see "Successfully logged in."
       And I should see "Test_User" within ".username"
   
-  Scenario: Guest can log out
-    Given I am logged in as a user
+  Scenario: User can log out
+    Given I am logged in as "Test_User"
     When I follow "logout"
     Then I should be on the homepage
       And I should see "Successfully logged out."

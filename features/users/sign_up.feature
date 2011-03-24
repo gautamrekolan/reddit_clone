@@ -29,6 +29,14 @@ Feature: Guest signs up
       And I press "Sign up"
     Then I should be on the homepage
       And I should see "Registration successful."
+      And I should see "1" within "#user_nav .karma"
+      
+  Scenario: New user should have user role
+    Given the following users exist:
+      | username | password |
+      | test2    | test123  |
+      And I am logged in as "test2"
+    Then I should have role "user"
 
   Scenario: Guest cancels sign up
     Given I am on the new user page

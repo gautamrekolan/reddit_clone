@@ -4,7 +4,7 @@ Feature: User edit profile
   So that I may keep my information on the site update
   
   Background:
-    Given I am logged in as a user
+    Given I am logged in as "any_user"
   
   Scenario: User can get to the edit profile page
     Given I am on the homepage

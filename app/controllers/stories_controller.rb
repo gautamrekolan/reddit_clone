@@ -25,9 +25,10 @@ class StoriesController < ApplicationController
 
 
   def create
-    @story.user = current_user
+    @story.user = current_user    
     if @story.save
       flash[:notice] = "Story was successfully created."
+      current_user.upvote_story(@story)
       redirect_to(@story)
     else
       flash[:notice] = "There were errors with your story submissions."

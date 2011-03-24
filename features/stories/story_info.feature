@@ -6,11 +6,17 @@ Feature: Story Information
 
   # INFORMATION
   
+  Background:
+    Given the following users exist:
+      | username | password   |
+      | caitlin  | caitlin123 |
+      And the following stories exist:
+        | title  | link       | user    | created_at          |
+        | google | google.com | caitlin | 2011-01-01 10:12:23 |
+      And I am logged in as "caitlin"
+  
   Scenario: See appropriate data in a story
-    Given the following stories exist:
-      | title  | link       | user    | created_at          |
-      | google | google.com | caitlin | 2011-01-01 10:12:23 |
-      And the current time is "2011-01-29 10:34:35"
+    Given the current time is "2011-01-29 10:34:35"
     When I display the story
     Then I should see "google" within ".story .title"
       And I should see "google.com" within ".story .site"
@@ -61,7 +67,6 @@ Feature: Story Information
       | "2010-06-01 00:00:00" | "5 months"      |
       | "2011-01-01 00:00:00" | "about 1 year"  |
   
-  
   # ACTIONS
   
   Scenario: Stories have a link to the story thread
@@ -74,19 +79,12 @@ Feature: Story Information
     Then I should be viewing the story
   
   Scenario: Story owner can edit or delete one of their stories
-    Given I am logged in as "caitlin" with password "caitlin123"
-      And the following stories exist:
-        | title  | link       | user    | created_at          |
-        | google | google.com | caitlin | 2011-01-01 10:12:23 |
     When I display the story
     Then I should see "edit" within ".story .actions"
       And I should see "delete" within ".story .actions"
     
   Scenario: One user can't edit or delete another user's story
-    Given I am logged in as "caitlin" with password "caitlin123"
-      And the following stories exist:
-        | title  | link       | user        | created_at          |
-        | google | google.com | not_caitlin | 2011-01-01 10:12:23 |
+    Given I am logged in as "not_caitlin"
     When I display the story
     Then I should not see "edit" within ".story .actions"
       And I should not see "delete" within ".story .actions"

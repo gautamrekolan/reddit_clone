@@ -4,8 +4,7 @@ Feature: Submit story
   So that I may contribute to the site content
   
   Background:
-    Given site has a user "Caitlin" with password "test123"
-      And I am logged in
+      And I am logged in as "Caitlin"
   
   Scenario: Go to new story form
     Given I am on the homepage

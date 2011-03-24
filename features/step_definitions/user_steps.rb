@@ -4,12 +4,28 @@
 
 def login(username, password)
   steps %Q{
-    Given site has a user "#{username}" with password "#{password}"
+    Given I am not logged in
       And I go to the login page
       And I fill in "Username" with "#{username}"
       And I fill in "Password" with "#{password}"
       And I press "Submit"
   }
+  @current_user = User.find_by_username(username)
+end
+
+def register_user(username, password, options = {})
+  options[:email] ||= "#{username}@test.com" 
+  steps %Q{
+    Given I am not logged in
+      And I am on the new user page
+      And I fill in "Username" with "#{username}"
+      And I fill in "Email" with "#{options[:email]}"
+      And I fill in "Password" with "#{password}"
+      And I fill in "Password confirmation" with "#{password}"
+      And I press "Sign up"
+      And I logout
+  }
+  {:username => username, :password => password}
 end
 
 
@@ -18,44 +34,38 @@ end
 # -------------------------------------------------
 
 Given /^I am not logged in$/ do
-  @user = nil
+  steps %Q{ Given I logout } unless @current_user.nil?
+  @current_user = nil
 end
 
 
-Given /^site has a user "([^"]*)" with email "([^"]*)" and password "([^"]*)"$/ do |username, email, password|
-  @user = User.create(:username => username,             
-                      :email => email,
-                      :password => password, 
-                      :password_confirmation => password, 
-                      :role => 'user')
-  @given_username = username
-  @given_password = password
-end  
-
-Given /^site has a user "([^"]*)" with password "([^"]*)"$/ do |username, password|
-  @user = User.create(:username => username,             
-                      :email => "#{username}@test.com",
-                      :password => password, 
-                      :password_confirmation => password, 
-                      :role => 'user')
-  @given_username = username
-  @given_password = password
-end            
-       
-                      
-Given /^I am logged in as "([^"]*)" with password "([^"]*)"$/ do |username, password|
-  login username, password
+Given /^I logout$/ do
+  steps %Q{ Given I follow "logout" }
+  @current_user = nil
 end
 
-Given /^I am logged in$/ do
-  login @given_username, @given_password
-end
 
-Given /^I am logged in as a user$/ do
-  login "test_user", "pass123"           
+Given /^the following users exist:$/ do |users_table|
+  @passwords = users_table.hashes.map do |user|
+    register_user(user['username'], user['password'], {:email => user['email']})
+  end
+end     
+
+Given /^I am logged in as "([^"]*)"$/ do |user|
+  steps %Q{ Given I am not logged in }
+  
+  found_user = @passwords.select{|p| p[:username] == user }.first unless @passwords.nil?
+  found_user = register_user user, 'pass123' if found_user.nil?
+  
+  login user, found_user[:password]
+  
 end
 
 Given /^I am an admin$/ do
-  @user.role = 'admin'
-  @user.save
+  @current_user.role = 'admin'
+  @current_user.save
+end
+
+Then /^I should have role "([^"]*)"$/ do |role|
+    assert_equal role, @current_user.role
 end
