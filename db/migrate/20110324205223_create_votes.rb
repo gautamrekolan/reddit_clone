@@ -5,7 +5,7 @@ class CreateVotes < ActiveRecord::Migration
       # our fields
       t.references  :user,                 :null => false
       t.references  :story,                :null => false
-      t.string      :type,                 :null => true
+      t.string      :up_or_down,           :null => true
       
       # rails fields
       t.timestamps

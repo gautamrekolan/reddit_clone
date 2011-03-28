@@ -43,7 +43,7 @@ Feature: Story Information
       | title  | link                                      | user    | created_at          |
       | google | http://google.com/more/stuff/after/domain | caitlin | 2011-01-01 10:12:23 |
     When I display the story
-    Then I should see "google.com" within ".story .site"
+    Then I should see "(google.com)" within ".story .site"
 
   Scenario Outline: Show appropriate time ago in words for a story date
     Given the current time is <current_time>

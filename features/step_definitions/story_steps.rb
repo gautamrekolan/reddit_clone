@@ -61,3 +61,13 @@ end
 
 
 
+# votes
+
+Then /^"([^"]*)" arrow is activated$/ do |up_or_down|
+  find(".story .scoring").should have_selector(".#{up_or_down}vote.active")
+end
+
+Then /^"([^"]*)" arrow is not activated$/ do |up_or_down|
+  find(".story .scoring").should_not have_selector(".#{up_or_down}vote.active")
+end
+

@@ -20,6 +20,12 @@ namespace :db do
         story.score      = 1
         
         user.karma += 1
+        
+        Vote.populate 1 do |vote|
+          vote.user_id       = user.id
+          vote.story_id      = story.id
+          vote.up_or_down    = 'up'
+        end
       end
     end
   end

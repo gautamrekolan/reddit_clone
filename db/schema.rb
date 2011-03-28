@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20110324205223) do
   create_table "votes", :force => true do |t|
     t.integer  "user_id",    :null => false
     t.integer  "story_id",   :null => false
-    t.string   "type"
+    t.string   "up_or_down"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -155,9 +155,16 @@ a {
 .story .scoring .upvote {
     background-position: top left;
 }
+.story .scoring .upvote.active {
+    background-position: top right;
+}
 .story .scoring .downvote {
     background-position: bottom left;
 }
+.story .scoring .downvote.active {
+    background-position: bottom right;
+}
+
 .story .scoring .score {
     color: #ccc;
     font-size: 13px;

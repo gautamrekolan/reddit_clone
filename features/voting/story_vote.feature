@@ -5,11 +5,12 @@ Feature: Vote on stories
   
   Background: 
     Given the following users exist:
-      | username | password   |
-      | caitlin  | caitlin123 |
+      | username     | password    |
+      | caitlin      | caitlin123  |
+      | not_caitlin  | randomstuff |
       And the following stories exist:
-        | title  | link       | user    | created_at          |
-        | google | google.com | caitlin | 2011-01-01 10:12:23 |
+        | title  | link       | user        | created_at          |
+        | google | google.com | not_caitlin | 2011-01-01 10:12:23 |
       And I am logged in as "caitlin"
     When I display the story
 
@@ -22,6 +23,14 @@ Feature: Vote on stories
   Scenario: User can upvote a story
     When I follow "up" within ".story .scoring"
     Then I should see "2" within ".story .score"
+      And "up" arrow is activated
+  
+  @javascript
+  Scenario: A second upvote takes away the upvote
+    When I follow "up" within ".story .scoring"
+      And I follow "up" within ".story .scoring"
+    Then I should see "1" within ".story .score"
+      And "up" arrow is not activated
   
   
   
