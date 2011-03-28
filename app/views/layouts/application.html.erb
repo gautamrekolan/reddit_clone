@@ -9,7 +9,7 @@
 <body>
   <div id="header">
     <div id="quick_links"></div>
-    <div id="logo"><%= link_to "reddit_clone", root_url %></div>
+    <div id="logo"><%= link_to "reddit_clone", root_path %></div>
     <div id="user_nav">
       <% if current_user %>
         <span class="username"><%= current_user.username %><span class="karma_wrap"> (<span class="karma"><%= current_user.karma %></span>)</span></span> | 

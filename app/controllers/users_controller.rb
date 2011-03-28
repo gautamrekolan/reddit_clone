@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       @user.role = "user"
       @user.save!
       flash[:notice] = "Registration successful."
-      redirect_to root_url
+      redirect_to root_path
     else
       flash[:notice] = "There were errors with your user submissions."
       render :action => "new"
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   def update
     if @user.save
       flash[:notice] = "Successfully updated profile."
-      redirect_to root_url
+      redirect_to root_path
     else
       flash[:notice] = "There were errors with your user submissions."
       render :action => "edit"

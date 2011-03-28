@@ -143,11 +143,26 @@ a {
 .story .scoring a {
     font-size: 12px;
     color: #b6b6b6;
+    width: 10px;
+    height: 9px;
+    display: block;
+    text-indent: -400%;
+    overflow: hidden;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+    background-image: url(/images/arrows.png);
+}
+.story .scoring .upvote {
+    background-position: top left;
+}
+.story .scoring .downvote {
+    background-position: bottom left;
 }
 .story .scoring .score {
     color: #ccc;
     font-size: 13px;
     font-weight: bold;
+    padding: 3px 0;
 }
 .story .title {
     font-size: 15px;

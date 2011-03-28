@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
    # access denied
    rescue_from   CanCan::AccessDenied do |exception|
      flash[:error] = "You must be logged in to do that."
-     redirect_to root_url
+     redirect_to root_path
    end
 
 

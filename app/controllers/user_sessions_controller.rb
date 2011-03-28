@@ -13,7 +13,7 @@ class UserSessionsController < ApplicationController
 
     if @user_session.save
       flash[:notice] = "Successfully logged in."
-      redirect_to root_url
+      redirect_to root_path
     else
       render :action => "new"
     end
@@ -25,7 +25,7 @@ class UserSessionsController < ApplicationController
     
     flash[:notice] = "Successfully logged out."
     
-    redirect_to root_url
+    redirect_to root_path
 
   end
   

@@ -23,13 +23,13 @@ class Ability
 
   def user(user)
     can :read,     Story
+    can :upvote,   Story
+    can :downvote, Story
     can :create,   Story
     can :update,   Story, :user_id => user.id
     can :destroy,  Story, :user_id => user.id
     
     can :update,   User, :id => user.id
-    
-    can :vote,     Story
   end
   
   def guest(user)

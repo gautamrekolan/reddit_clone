@@ -17,4 +17,11 @@ class User < ActiveRecord::Base
     role.to_sym == role
   end
 
+  def upvote_story(story)
+    story.score += 1
+    story.save
+    story.user.karma += 1
+    story.user.save
+  end
+
 end

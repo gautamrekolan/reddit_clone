@@ -5,13 +5,18 @@ class StoriesController < ApplicationController
   #-------------------------------------------------
 
   load_and_authorize_resource
-  
+    
   # -------------------------------------------------
   #  Public methods
   # -------------------------------------------------
 
   def index    
-    @stories = Story.order("created_at DESC").accessible_by(current_ability, :read).all
+    @stories = Story.order("created_at DESC").accessible_by(current_ability, :read).limit(20)
+    
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
 
@@ -21,6 +26,7 @@ class StoriesController < ApplicationController
 
 
   def new
+    logger.debug "new"
   end
 
 
@@ -44,7 +50,7 @@ class StoriesController < ApplicationController
   def update
     if @story.save
       flash[:notice] = "Story was successfully updated."
-      redirect_to(stories_url)
+      redirect_to(stories_path)
     else
       flash[:notice] = "There were errors with your story submissions."
       render :action => "edit"
@@ -56,20 +62,18 @@ class StoriesController < ApplicationController
     @story.destroy
     
     flash[:notice] = "The story was deleted successfully."
-    redirect_to(stories_url)
+    redirect_to(stories_path)
   end
   
   
-  def upvote_story
-    @story.score += 1
-    @story.save
-    @story.user.karma += 1
-    @story.user.save
+  def upvote
+    current_user.upvote_story(@story)
     
     respond_to do |format|
-      format.html { redirect_to @story }
+      format.html
       format.js
     end
   end
+  
   
 end

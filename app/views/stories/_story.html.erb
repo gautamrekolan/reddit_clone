@@ -1,13 +1,8 @@
-<div class="story">
+<div class="story" id="story-<%= story.id %>">
   <div class="scoring">
-    <%= link_to "\u25B2",
-                upvote_url(story),
-                :method     => :put,
-                :remote     => true,
-                :alt        => "Upvote"
-    %>    
+    <%= link_to "up", upvote_path(story), :remote => true, :class => :upvote %>    
     <div class="score"><%= story.score %></div>
-    <%= link_to "\u25BC", "#", :class => "downvote" %>
+    <%= link_to "down", upvote_path(story), :remote => true, :class => :downvote %>
   </div>
   <div class="info">
     <div class="title"><%= link_to story.title, check_http(story.link), :target => :new %> <span class="site">(<%= link_to story.link, story.link, :target => :new %>)</span></div>
