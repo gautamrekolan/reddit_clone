@@ -18,6 +18,8 @@ def make_story(title, link, options = {})
     @story.created_at = Time.parse(options[:created_at]).gmtime
     @story.save
   end
+  
+  {:title => title, :link => link, :user => options[:user], :created_at => @story.created_at}
 end
 
 
@@ -27,7 +29,7 @@ end
 
 # seeing a list of stories
 
-Given /^there are (\d+) stories$/ do |story_count|
+Given /^there are "([^"]*)" stories$/ do |story_count|
   user_hash = {:password => "test123", :password_confirmation => "test123", :role => 'user'}
 
   @stories = []
@@ -37,7 +39,7 @@ Given /^there are (\d+) stories$/ do |story_count|
   end
 end
 
-Then /^I should see (\d+) stories sorted by "([^"]*)"$/ do |story_count, sorted_by|
+Then /^I should see "([^"]*)" stories sorted by "([^"]*)"$/ do |story_count, sorted_by|
   visit root_path
   page.should have_css('.story', :count => story_count.to_i)
 end
@@ -60,14 +62,32 @@ Then /^I should be viewing the story$/ do
 end
 
 
+# interacting
+
+Given /^I am interacting with story titled "([^"]*)"$/ do |title|
+  $story = @stories.select{|s| s[:title] == title }.first
+end
+
 
 # votes
 
-Then /^"([^"]*)" arrow is activated$/ do |up_or_down|
-  find(".story .scoring").should have_selector(".#{up_or_down}vote.active")
+When /^I "([^"]*)" the story$/ do |up_or_down_vote|
+    steps %Q{ When I follow "#{up_or_down_vote.sub(/vote/, '')}" within ".story .scoring" }
 end
 
-Then /^"([^"]*)" arrow is not activated$/ do |up_or_down|
-  find(".story .scoring").should_not have_selector(".#{up_or_down}vote.active")
+Then /^the story should have "([^"]*)" points$/ do |score|
+  steps %Q{ Then I should see "#{score}" within ".story .score" }
 end
 
+Then /^the story should be "([^"]*)"$/ do |vote|
+  if vote == "upvoted"
+    find("#story-#{@story.id} .scoring").should have_selector(".upvote.active")
+    find("#story-#{@story.id} .scoring").should have_no_selector(".downvote.active")
+  elsif vote == "downvoted"
+    find("#story-#{@story.id} .scoring").should have_no_selector(".upvote.active")
+    find("#story-#{@story.id} .scoring").should have_selector(".downvote.active")
+  else
+    find("#story-#{@story.id} .scoring").should have_no_selector(".upvote.active")
+    find("#story-#{@story.id} .scoring").should have_no_selector(".downvote.active")
+  end
+end

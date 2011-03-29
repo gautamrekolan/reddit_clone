@@ -29,43 +29,45 @@ Feature: Story Information
       | google | <link>     | caitlin | 2011-01-01 10:12:23 |
     When I display the story
     Then I should see "google" within ".story .title"  
-      And "google" should be a link to <display_link>
+      And "google" should be a link to "<display_link>"
   
       Scenarios: Links display with http://
-        | link                  | display_link            |
-        | google.com            | "http://google.com"     |
-        | www.google.com        | "http://www.google.com" |
-        | www.google.com        | "http://www.google.com" |
-        | http://www.google.com | "http://www.google.com" |
+        | link                  | display_link          |
+        | google.com            | http://google.com     |
+        | www.google.com        | http://www.google.com |
+        | www.google.com        | http://www.google.com |
+        | http://www.google.com | http://www.google.com |
   
-  Scenario: Story should show domain in the site parenthesis
+  Scenario: Story should show domain in the site parenthesis, and link to the site
     Given the following stories exist:
       | title  | link                                      | user    | created_at          |
       | google | http://google.com/more/stuff/after/domain | caitlin | 2011-01-01 10:12:23 |
     When I display the story
     Then I should see "(google.com)" within ".story .site"
+      And "google.com" should be a link to "http://google.com"
+    
 
   Scenario Outline: Show appropriate time ago in words for a story date
-    Given the current time is <current_time>
+    Given the current time is "<current_time>"
       And the following stories exist:
         | title  | link       | user    | created_at           |
         | google | google.com | caitlin | 2010-01-01 00:00:00  |
     When I display the story
-    Then I should see <time_in_words> within ".date"
+    Then I should see "<time_in_words>" within ".date"
 
     # don't need to test extensively since it's a rails helper
     # just enough to make sure it's working correctly
     Scenarios: time gets converted to time ago
-      | current_time          | time_in_words   |
-      | "2010-01-01 00:01:00" | "1 minute"      |
-      | "2010-01-01 00:05:00" | "5 minutes"     |
-      | "2010-01-01 00:50:00" | "about 1 hour"  |
-      | "2010-01-01 05:00:00" | "5 hours"       |
-      | "2010-01-02 00:00:00" | "1 day"         |
-      | "2010-01-06 00:00:00" | "5 days"        |
-      | "2010-02-01 00:00:00" | "about 1 month" |
-      | "2010-06-01 00:00:00" | "5 months"      |
-      | "2011-01-01 00:00:00" | "about 1 year"  |
+      | current_time        | time_in_words |
+      | 2010-01-01 00:01:00 | 1 minute      |
+      | 2010-01-01 00:05:00 | 5 minutes     |
+      | 2010-01-01 00:50:00 | about 1 hour  |
+      | 2010-01-01 05:00:00 | 5 hours       |
+      | 2010-01-02 00:00:00 | 1 day         |
+      | 2010-01-06 00:00:00 | 5 days        |
+      | 2010-02-01 00:00:00 | about 1 month |
+      | 2010-06-01 00:00:00 | 5 months      |
+      | 2011-01-01 00:00:00 | about 1 year  |
   
   # ACTIONS
   

@@ -18,32 +18,34 @@ Feature: Vote on stories
     Then I should see "up" within ".story .scoring"
       And I should see "1" within ".story .score"
       And I should see "down" within ".story .scoring"
-    
-  @javascript
-  Scenario: User can upvote a story
-    When I follow "up" within ".story .scoring"
-    Then I should see "2" within ".story .score"
-      And "up" arrow is activated
   
   @javascript
-  Scenario: A second upvote takes away the upvote
-    When I follow "up" within ".story .scoring"
-      And I follow "up" within ".story .scoring"
-    Then I should see "1" within ".story .score"
-      And "up" arrow is not activated
+  Scenario Outline: User votes once on a story
+    When I "<up_or_down>vote" the story
+    Then the story should have "<score>" points
+      And the story should be "<vote>"
   
-  @javascript
-  Scenario: User can downvote a story
-    When I follow "down" within ".story .scoring"
-    Then I should see "0" within ".story .score"
-      And "down" arrow is activated
+    Scenarios: Vote is up
+      | up_or_down | score | vote      |
+      | up         | 2     | upvoted   |
+
+    Scenarios: Vote is down
+      | up_or_down | score | vote      |
+      | down       | 0     | downvoted |
 
   @javascript
-  Scenario: A second downvote takes away the downvote
-    When I follow "down" within ".story .scoring"
-      And I follow "down" within ".story .scoring"
-    Then I should see "1" within ".story .score"
-      And "down" arrow is not activated
+  Scenario Outline: User votes twice on a story
+    When I "<up_or_down_1>vote" the story
+      And I "<up_or_down_2>vote" the story
+    Then the story should have "<score>" points
+      And the story should be "<vote>"
 
-
-
+    Scenarios: First vote is up
+      | up_or_down_1 | up_or_down_2 | score | vote      |
+      | up           | down         | 0     | downvoted |
+      | up           | up           | 1     | not voted |
+      
+    Scenarios: First vote is down
+      | up_or_down_1 | up_or_down_2 | score | vote      |
+      | down         | down         | 1     | not voted |
+      | down         | up           | 2     | upvoted   |

@@ -1,2 +1,5 @@
 $("#story-<%= @story.id %> .score").html("<%= @story.score %>");
 $("#story-<%= @story.id %> .upvote").toggleClass("active");
+if ($("#story-<%= @story.id %> .downvote").hasClass("active")) {
+    $("#story-<%= @story.id %> .downvote").removeClass("active")
+}
