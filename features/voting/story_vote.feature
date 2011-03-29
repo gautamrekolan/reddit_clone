@@ -32,6 +32,18 @@ Feature: Vote on stories
     Then I should see "1" within ".story .score"
       And "up" arrow is not activated
   
-  
-  
-  
+  @javascript
+  Scenario: User can downvote a story
+    When I follow "down" within ".story .scoring"
+    Then I should see "0" within ".story .score"
+      And "down" arrow is activated
+
+  @javascript
+  Scenario: A second downvote takes away the downvote
+    When I follow "down" within ".story .scoring"
+      And I follow "down" within ".story .scoring"
+    Then I should see "1" within ".story .score"
+      And "down" arrow is not activated
+
+
+

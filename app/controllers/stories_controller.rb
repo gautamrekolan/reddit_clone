@@ -75,5 +75,14 @@ class StoriesController < ApplicationController
     end
   end
   
+  def downvote
+    current_user.downvote_story(@story)
+    
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+  
   
 end

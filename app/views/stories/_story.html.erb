@@ -2,7 +2,7 @@
   <div class="scoring">
     <%= link_to "up", upvote_path(story), :remote => true, :class => :upvote %>    
     <div class="score"><%= story.score %></div>
-    <%= link_to "down", upvote_path(story), :remote => true, :class => :downvote %>
+    <%= link_to "down", downvote_path(story), :remote => true, :class => :downvote %>
   </div>
   <div class="info">
     <div class="title"><%= link_to story.title, check_http(story.link), :target => :new %> <span class="site">(<%= link_to story.site, story.link, :target => :new %>)</span></div>
