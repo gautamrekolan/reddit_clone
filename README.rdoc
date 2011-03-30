@@ -5,5 +5,5 @@ This reddit clone is a project created for practice with Rails, Cucumber, and RS
 
 == Some notes
 
-* Using Populator[link:https://github.com/ryanb/populator] /Faker[link:https://github.com/stympy/faker] for development test data. You can populate your database with:
+* Using {Populator}[link:https://github.com/ryanb/populator]/{Faker}[link:https://github.com/stympy/faker] for development test data. You can populate your database with:
        rake db:populate
