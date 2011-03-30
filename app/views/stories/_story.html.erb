@@ -1,8 +1,10 @@
 <div class="story" id="story-<%= story.id %>">
   <div class="scoring">
-    <%= link_to "up", upvote_path(story), :remote => true, :class => :upvote %>    
+    <%= link_to "up", upvote_path(story), :remote => true, 
+                                          :class => "upvote#{" active" if story.upvoted_by_user?(current_user)}" %>    
     <div class="score"><%= story.score %></div>
-    <%= link_to "down", downvote_path(story), :remote => true, :class => :downvote %>
+    <%= link_to "down", downvote_path(story), :remote => true, 
+                                              :class => "downvote#{" active" if story.downvoted_by_user?(current_user)}" %> 
   </div>
   <div class="info">
     <div class="title"><%= link_to story.title, check_http(story.link), :target => :new %> <span class="site">(<%= link_to story.site, check_http(story.site), :target => :new %>)</span></div>
