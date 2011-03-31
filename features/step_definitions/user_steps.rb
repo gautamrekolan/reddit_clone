@@ -22,7 +22,7 @@ def register_user(username, password, options = {})
       And I fill in "Email" with "#{options[:email]}"
       And I fill in "Password" with "#{password}"
       And I fill in "Password confirmation" with "#{password}"
-      And I press "Sign up"
+      And I press "Submit"
       And I logout
   }
   {:username => username, :password => password}

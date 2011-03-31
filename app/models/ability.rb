@@ -30,11 +30,14 @@ class Ability
     can :destroy,  Story, :user_id => user.id
     
     can :update,   User, :id => user.id
+    can :read,     User
   end
   
   def guest(user)
     can :read,    Story
     can :create,  User
+    
+    can :read,    User
   end
   
 end

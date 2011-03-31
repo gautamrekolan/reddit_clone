@@ -32,14 +32,17 @@ class UsersController < ApplicationController
 
 
   def update
+    @user.attributes = params[:user]
     if @user.save
       flash[:notice] = "Successfully updated profile."
-      redirect_to root_path
+      redirect_to user_path
     else
       flash[:notice] = "There were errors with your user submissions."
       render :action => "edit"
     end  
   end
 
+  def show
+  end
   
 end

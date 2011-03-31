@@ -14,7 +14,11 @@ class ApplicationController < ActionController::Base
    
    # access denied
    rescue_from   CanCan::AccessDenied do |exception|
-     flash[:error] = "You must be logged in to do that."
+     if current_user.nil?
+       flash[:error] = "You must be logged in to do that."
+     else
+       flash[:error] = "You do not have permission to do that."
+     end
      redirect_to root_path
    end
 

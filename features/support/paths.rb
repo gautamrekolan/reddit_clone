@@ -17,8 +17,11 @@ module NavigationHelpers
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
 
-    when /edit user page/
-      edit_user_path @current_user
+    when /the edit profile page for "(.*)"/
+      edit_user_path User.find_by_username($1)
+      
+    when /the profile page for "(.*)"/
+      user_path User.find_by_username($1)
 
     else
       begin

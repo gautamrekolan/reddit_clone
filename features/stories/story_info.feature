@@ -45,7 +45,12 @@ Feature: Story Information
     When I display the story
     Then I should see "(google.com)" within ".story .site"
       And "google.com" should be a link to "http://google.com"
-    
+  
+  Scenario: Username in the story links to the user profile
+    Given I am logged in as "not_caitlin"
+    When I display the story
+      And I follow "caitlin" within ".story .details"
+    Then I should be on the profile page for "caitlin"  
 
   Scenario Outline: Show appropriate time ago in words for a story date
     Given the current time is "<current_time>"

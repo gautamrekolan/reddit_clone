@@ -26,7 +26,7 @@ Feature: Guest signs up
       And I fill in "Email" with "user@test.com"
       And I fill in "Password" with "password123"
       And I fill in "Password confirmation" with "password123"
-      And I press "Sign up"
+      And I press "Submit"
     Then I should be on the homepage
       And I should see "Registration successful."
       And I should see "1" within "#user_nav .karma"
