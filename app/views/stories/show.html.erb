@@ -2,4 +2,9 @@
   <%= render :partial => 'story', :locals => {:story => @story} %>
 </div>
 
-<%= link_to 'Back', stories_path %>
+<div id="comments_area">
+  <%= render :partial => 'comments/form' %>
+  <div id="comments">
+    <%= render :partial => 'comments/comment', :collection => @story.comments %>
+  </div>
+</div>

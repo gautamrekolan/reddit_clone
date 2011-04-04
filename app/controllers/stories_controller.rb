@@ -48,9 +48,10 @@ class StoriesController < ApplicationController
 
 
   def update
+    @story.attributes = params[:story]
     if @story.save
       flash[:notice] = "Story was successfully updated."
-      redirect_to(stories_path)
+      redirect_to(@story)
     else
       flash[:notice] = "There were errors with your story submissions."
       render :action => "edit"

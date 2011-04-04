@@ -1,0 +1,14 @@
+<%# need this check so we can put the comment form above the comments %>
+<% unless comment.id.nil? %>
+<div class="comment" id="comment-<%= comment.id %>">
+  <div class="details">
+    <%= link_to comment.user.username, comment.user, :class => :user %> 
+    <span class="date"><%= format_time comment.created_at %> ago</span>
+  </div>
+  <div class="text"><%= comment.comment %></div>
+  <div class="actions">
+    <%= link_to "permalink", "#" %>
+    <%= link_to "reply", "#" %>
+  </div>
+</div>
+<% end %>

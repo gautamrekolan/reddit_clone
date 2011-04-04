@@ -6,7 +6,10 @@ RedditClone::Application.routes.draw do
   match "stories/:id/upvote"   => "stories#upvote",      :as => :upvote
   match "stories/:id/downvote" => "stories#downvote",    :as => :downvote
   
-  resources :stories
+  resources :stories do
+    resources :comments
+  end
+  
   resources :users
   resources :user_sessions
 

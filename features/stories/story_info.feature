@@ -76,15 +76,19 @@ Feature: Story Information
   
   # ACTIONS
   
-  Scenario: Stories have a link to the story thread
-    Given the following stories exist:
-      | title  | link       | user    | created_at          |
-      | google | google.com | caitlin | 2011-01-01 10:12:23 |
-    When I display the story
+  Scenario: Story have a link to the story thread
+    When I am on the homepage
     Then I should see "link" within ".story .actions"  
     When I follow "link"
     Then I should be viewing the story
-  
+
+  Scenario: Story should show how many comments are on the story, and it should link to the story thread
+    Given the story "google.com" has "5" comments
+    When I am on the homepage
+    Then I should see "5 comments" within ".story .actions"
+    When I follow "5 comments"
+    Then I should be viewing the story
+    
   Scenario: Story owner can edit or delete one of their stories
     When I display the story
     Then I should see "edit" within ".story .actions"

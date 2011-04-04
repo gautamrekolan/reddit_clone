@@ -35,9 +35,8 @@ Feature: User edit profile
     Then I should be on the homepage
       And I should see "You do not have permission to do that."
 
-
   Scenario: User has a profile page
     When I go to the profile page for "caitlin"
     Then I should see "caitlin" within ".username"
-  
+      And I should see "karma" within ".karma"
   

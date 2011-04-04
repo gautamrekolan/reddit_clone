@@ -199,3 +199,38 @@ a {
 #story {
     margin-bottom: 24px;
 }
+
+#comments_area form textarea {
+    width: 500px;
+    height: 100px;
+}
+#comments {
+    margin-top: 18px;
+}
+.comment {
+    margin-bottom: 12px;
+}
+.comment .details {
+    font-size: 10px;
+    margin-bottom: 3px;
+    color: #888;
+}
+.comment .details .user {
+    font-weight: bold;
+}
+.comment .text {
+
+}
+.comment .actions {
+    margin-top: 3px;
+}
+.comment .actions a {
+    font-weight: bold;
+    color: #888;
+    margin-right: 5px;
+    font-size: 10px;
+}
+.comment .details a:hover, 
+.comment .actions a:hover {
+    text-decoration: underline;
+}

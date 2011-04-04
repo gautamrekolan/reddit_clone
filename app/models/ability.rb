@@ -29,8 +29,16 @@ class Ability
     can :update,   Story, :user_id => user.id
     can :destroy,  Story, :user_id => user.id
     
+    can :read,     Comment
+    can :upvote,   Comment
+    can :downvote, Comment
+    can :create,   Comment
+    can :update,   Comment, :user_id => user.id
+    can :destroy,  Comment, :user_id => user.id
+    
     can :update,   User, :id => user.id
     can :read,     User
+    
   end
   
   def guest(user)

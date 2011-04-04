@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
     
   has_many :stories, :dependent => :nullify
   has_many :votes
+  has_many :comments
   
   
   

@@ -23,6 +23,10 @@ module NavigationHelpers
     when /the profile page for "(.*)"/
       user_path User.find_by_username($1)
 
+    when /the story page for "(.*)"/
+      story_path Story.find_by_link($1)
+
+      
     else
       begin
         page_name =~ /the (.*) page/
