@@ -92,11 +92,4 @@ Then /^the story should be "([^"]*)"$/ do |vote|
   end
 end
 
-# comments
-
-Given /^the story "([^"]*)" has "([^"]*)" comments$/ do |story, comment_count|
-  steps %Q{ Given I am interacting with story titled "#{story}" }
-  
-end
-
 

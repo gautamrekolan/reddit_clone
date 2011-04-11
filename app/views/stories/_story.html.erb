@@ -10,7 +10,7 @@
     <div class="title"><%= link_to story.title, check_http(story.link), :target => :new %> <span class="site">(<%= link_to story.site, check_http(story.site), :target => :new %>)</span></div>
     <div class="details">submitted <span class="date"><%= format_time story.created_at %> ago</span> by <%= link_to story.user.username, story.user, :class => :user %></div>
     <div class="actions">
-      <%= link_to 'link', story_path(story) %>
+      <%= link_to pluralize(story.comments.count, 'comment'), story_path(story) %>
       <%= link_to 'edit', edit_story_path(story) if can? :update, story %>
       <%= link_to 'delete', story, :confirm => 'Are you sure?', :method => :delete if can? :destroy, story %>
     </div>

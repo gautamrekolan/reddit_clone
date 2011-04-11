@@ -13,6 +13,7 @@ Feature: Story Information
       And the following stories exist:
         | title  | link       | user    | created_at          |
         | google | google.com | caitlin | 2011-01-01 10:12:23 |
+      And the story "google.com" has "5" comments
       And I am logged in as "caitlin"
   
   Scenario: See appropriate data in a story
@@ -75,15 +76,8 @@ Feature: Story Information
       | 2011-01-01 00:00:00 | about 1 year  |
   
   # ACTIONS
-  
-  Scenario: Story have a link to the story thread
-    When I am on the homepage
-    Then I should see "link" within ".story .actions"  
-    When I follow "link"
-    Then I should be viewing the story
 
   Scenario: Story should show how many comments are on the story, and it should link to the story thread
-    Given the story "google.com" has "5" comments
     When I am on the homepage
     Then I should see "5 comments" within ".story .actions"
     When I follow "5 comments"

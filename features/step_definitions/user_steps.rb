@@ -55,7 +55,11 @@ Given /^I am logged in as "([^"]*)"$/ do |user|
   steps %Q{ Given I am not logged in }
   
   found_user = @passwords.select{|p| p[:username] == user }.first unless @passwords.nil?
-  found_user = register_user user, 'pass123' if found_user.nil?
+  if found_user.nil?
+    found_user = register_user user, 'pass123'
+    @passwords = [] if @passwords.nil?
+    @passwords << found_user
+  end
   
   login user, found_user[:password]
   
