@@ -200,6 +200,9 @@ a {
     margin-bottom: 24px;
 }
 
+#comments_area {
+    padding-left: 20px;
+}
 #comments_area form textarea {
     width: 500px;
     height: 100px;

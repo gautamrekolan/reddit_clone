@@ -74,9 +74,13 @@ class User < ActiveRecord::Base
     
     if vote
       story.score += point_change
+      logger.info "points added to story"
       story.save      
+      logger.info "story saved"
       story.user.karma += point_change
+      logger.info "karma added to story user"
       story.user.save
+      logger.info "story user saved"
     end
   end
 

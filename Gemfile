@@ -13,6 +13,7 @@ source 'http://rubygems.org'
 gem 'rack'
 gem 'rails', '3.0.3'
 gem 'sqlite3-ruby'
+gem "haml"
 
 # authentication/authorization
 gem 'authlogic',                                                # For the time being, we're fetching the latest 

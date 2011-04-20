@@ -26,6 +26,12 @@ namespace :db do
           vote.story_id      = story.id
           vote.up_or_down    = 'up'
         end
+        
+        # Comment.populate 0..150 do |comment|
+        #   comment.comment     = Populator.paragraphs(1..5)
+        #   comment.user_id     = Random.new.rand(1..30) # random user for the comment
+        #   comment.created_at  = story.created_at..Time.now
+        # end
       end
     end
   end
