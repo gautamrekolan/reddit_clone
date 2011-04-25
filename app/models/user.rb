@@ -25,63 +25,38 @@ class User < ActiveRecord::Base
   end
 
   def upvote_story(story)
-    
-    user_vote = self.votes.find_by_story_id(story.id)
-    if user_vote
-      logger.info "*** VOTE"
-      if user_vote.up_or_down == "down"
-        logger.info "***     IS DOWN"
-        vote = user_vote.update_attributes(:up_or_down => :up)
-        point_change = 2
-      else 
-        logger.info "***     IS UP"
-        vote = user_vote.destroy
-        point_change = -1
-      end
-    else
-      logger.info "*** NO VOTE"
-      vote = self.votes.create(:user_id => self.id, :story_id => story.id, :up_or_down => :up)
-      point_change = 1
-    end
-    
-    if vote
-      story.score += point_change
-      story.save      
-      story.user.karma += point_change
-      story.user.save
-    end
+    vote(story, 'up')
   end
   
   def downvote_story(story)
-    
+    vote(story, 'down')
+  end
+  
+  def vote(story, up_or_down)
+    up_or_down_opposite = (up_or_down == 'up' ? 'down' : 'up')
+    up_or_down_modifier = (up_or_down == 'up' ? 1 : -1 )
+
     user_vote = self.votes.find_by_story_id(story.id)
     if user_vote
-      logger.info "*** VOTE"
-      if user_vote.up_or_down == "up"
-        logger.info "***     IS UP"
-        vote = user_vote.update_attributes(:up_or_down => :down)
-        point_change = -2
+      if user_vote.up_or_down == up_or_down_opposite
+        vote = user_vote.update_attributes(:up_or_down => up_or_down.to_sym)
+        point_change = 2*up_or_down_modifier
       else 
-        logger.info "***     IS DOWN"
         vote = user_vote.destroy
-        point_change = 1
+        point_change = -1*up_or_down_modifier
       end
     else
-      logger.info "*** NO VOTE"
-      vote = self.votes.create(:user_id => self.id, :story_id => story.id, :up_or_down => :down)
-      point_change = -1
+      vote = self.votes.create(:user_id => self.id, :story_id => story.id, :up_or_down => up_or_down.to_sym)
+      point_change = 1*up_or_down_modifier
     end
-    
+
     if vote
       story.score += point_change
-      logger.info "points added to story"
       story.save      
-      logger.info "story saved"
       story.user.karma += point_change
-      logger.info "karma added to story user"
       story.user.save
-      logger.info "story user saved"
     end
+
   end
 
 end

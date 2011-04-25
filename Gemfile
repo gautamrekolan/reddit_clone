@@ -42,6 +42,7 @@ end
 # test
 group :test do
   gem 'rspec'
+  gem 'factory_girl_rails'
   gem 'cucumber'
   gem 'cucumber-rails'
   gem 'capybara'
