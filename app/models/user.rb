@@ -9,9 +9,9 @@ class User < ActiveRecord::Base
   
   ROLES = %w[admin user]
     
-  has_many :stories, :dependent => :nullify
-  has_many :votes
-  has_many :comments
+  has_many :stories,  :dependent => :nullify
+  has_many :votes,    :dependent => :nullify
+  has_many :comments, :dependent => :nullify
   
   
   
@@ -24,17 +24,9 @@ class User < ActiveRecord::Base
     role.to_sym == role
   end
 
-  def upvote_story(story)
-    vote(story, 'up')
-  end
-  
-  def downvote_story(story)
-    vote(story, 'down')
-  end
-  
-  def vote(story, up_or_down)
-    up_or_down_opposite = (up_or_down == 'up' ? 'down' : 'up')
-    up_or_down_modifier = (up_or_down == 'up' ? 1 : -1 )
+  def vote_on_story(story, up_or_down)
+    up_or_down_opposite = (up_or_down == :up ? 'down' : 'up')
+    up_or_down_modifier = (up_or_down == :up ? 1 : -1 )
 
     user_vote = self.votes.find_by_story_id(story.id)
     if user_vote

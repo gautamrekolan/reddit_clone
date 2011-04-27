@@ -8,7 +8,7 @@ describe User do
   
   before(:each) do
     @attr = { 
-      :username              => "example_ser", 
+      :username              => "example_user", 
       :email                 => "user@example.com", 
       :password              => "foobar",
       :password_confirmation => "foobar"
@@ -68,28 +68,64 @@ describe User do
   # -------------------------------------------------
   #  Associations
   # -------------------------------------------------
-  
+      
   describe "story associations" do
-
+    
     before(:each) do
-      @user = User.create(@attr)
-      @s1  = Factory(:story, :user => @user, :created_at => 1.day.ago)
-      @s2  = Factory(:story, :user => @user, :created_at => 1.hour.ago)
+      @user     = User.create(@attr)
+      @story    = Factory(:story, :user => @user)
     end
 
     it "should have a stories attribute" do
       @user.should respond_to(:stories)
     end
-    
+  
     it "should remove user reference from stories on delete" do
       @user.destroy
-      [@s1, @s2].each do |story|
-        Story.find_by_id(story.id).user.should be_nil
-      end
+      Story.find_by_id(@story.id).user.should be_nil
+    end
+  
+  end
+
+  describe "vote associations" do
+    
+    before(:each) do
+      @user     = User.create(@attr)
+      @story    = Factory(:story, :user => @user)
+      @vote     = Factory(:vote, :story => @story, :user => @user)
+    end
+
+    it "should have a votes attribute" do
+      @user.should respond_to(:votes)
+    end
+  
+    it "should remove user reference from votes on delete" do
+      @user.destroy
+      Vote.find_by_id(@vote.id).user.should be_nil
+    end
+  
+  end
+
+  describe "comment associations" do
+    
+    before(:each) do
+      @user     = User.create(@attr)
+      @story    = Factory(:story, :user => @user)
+      @comment  = Factory(:comment, :story => @story, :user => @user)
+      @vote     = Factory(:vote, :story => @story, :user => @user)
     end
     
-  end
+    it "should have a comments attribute" do
+      @user.should respond_to(:comments)
+    end
   
+    it "should remove user reference from comments on delete" do
+      @user.destroy
+      Comment.find_by_id(@comment.id).user.should be_nil
+    end
+  
+  end
+   
   # -------------------------------------------------
   #  Validations
   # -------------------------------------------------
@@ -102,7 +138,10 @@ describe User do
   it "should be able to check role" do
     @user = User.create(@attr)
     @user.should respond_to(:is?)
-    
+  end
+  
+  it "should be able to vote on a story" do
+    pending "Seems complicated for now"
   end
 
 end

@@ -34,7 +34,7 @@ class StoriesController < ApplicationController
     @story.user = current_user    
     if @story.save
       flash[:notice] = "Story was successfully created."
-      current_user.upvote_story(@story)
+      current_user.vote_on_story @story, :up
       redirect_to(@story)
     else
       flash[:notice] = "There were errors with your story submissions."
@@ -68,7 +68,7 @@ class StoriesController < ApplicationController
   
   
   def upvote
-    current_user.upvote_story(@story)
+    current_user.vote_on_story @story, :up
     
     respond_to do |format|
       format.html
@@ -77,7 +77,7 @@ class StoriesController < ApplicationController
   end
   
   def downvote
-    current_user.downvote_story(@story)
+    current_user.vote_on_story @story, :down
     
     respond_to do |format|
       format.html

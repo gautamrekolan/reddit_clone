@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Story do
+describe Comment do
   
   # -------------------------------------------------
   #  Main Stuff
@@ -95,46 +95,5 @@ describe Story do
   # -------------------------------------------------
   #  Methods
   # -------------------------------------------------
-  
-  describe "methods" do
-    
-    before(:each) do
-      @story = @user.stories.create(@attr.merge(:link => "www.domainname.com/secondarypage/"))
-    end
-  
-    it "should provide a site from a story link" do
-      @story.site.should == 'domainname.com'
-    end
-  
-    it "should provide a full link" do
-      @story.full_link.should == 'http://www.domainname.com/secondarypage/'
-    end
-  
-    it "should provide a full site link" do
-      @story.site_link.should == 'http://domainname.com'
-    end
-    
-    describe "for votes" do
-      
-      it "should be able to check if user upvoted story" do
-        @vote = Factory(:vote, :story => @story, :user => @user, :up_or_down => :up)
-        @story.should     be_upvoted_by_user(@user)
-        @story.should_not be_downvoted_by_user(@user)
-      end
-
-      it "should be able to check if user downvoted story" do
-        @vote = Factory(:vote, :story => @story, :user => @user, :up_or_down => :down)
-        @story.should     be_downvoted_by_user(@user)
-        @story.should_not be_upvoted_by_user(@user)
-      end
-
-      it "should be able to check if user hasn't voted on a story" do
-        @story.should_not be_downvoted_by_user(@user)
-        @story.should_not be_upvoted_by_user(@user)
-      end
-      
-    end
-  
-  end
 
 end
