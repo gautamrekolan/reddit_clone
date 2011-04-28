@@ -83,11 +83,11 @@ describe Story do
   describe "validations" do
     
     it "should require a title" do
-      pending "Incomplete feature: validating stories"
+      pending "Incomplete feature: story validation"
     end
 
     it "should require a link" do
-      pending "Incomplete feature: validating stories"
+      pending "Incomplete feature: story validation"
     end
     
   end
