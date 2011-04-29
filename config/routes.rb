@@ -18,7 +18,7 @@ RedditClone::Application.routes.draw do
   match "top" => "stories#top",       :as => :stories_sorted_by_top
 
 
-  root :to => "stories#top"
+  root :to => "stories#new"
 
   
 end

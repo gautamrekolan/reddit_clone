@@ -20,11 +20,13 @@ Feature: List stories
     Given I am on the homepage
     When I follow "new" within "#sort_tabs"
     Then I should be on the stories sorted by new page
+    And I should see "new" within ".active"
   
   Scenario: User can navigate to the "top" sorted stories page
     Given I am on the homepage
     When I follow "top" within "#sort_tabs"
     Then I should be on the stories sorted by top page
+      And I should see "top" within ".active"
   
   @javascript
   Scenario: User can see past upvoted items
