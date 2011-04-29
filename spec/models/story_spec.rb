@@ -93,6 +93,59 @@ describe Story do
   end
   
   # -------------------------------------------------
+  #  Scopes
+  # -------------------------------------------------
+
+  describe "newest" do
+    
+    before(:each) do
+      @latest_story   = @user.stories.create!(:title => "latest", :link => "http://lateststory.com", 
+                                              :created_at => Time.now)
+      @earliest_story = @user.stories.create!(:title => "earliest", :link => "http://earlieststory.com", 
+                                              :created_at => Time.now - 10.days)
+      @middle_story   = @user.stories.create!(:title => "middle", :link => "http://middlestory.com", 
+                                              :created_at => Time.now - 5.days)
+    end
+    
+    it "should have a newest class method" do
+      Story.should respond_to(:newest)
+    end
+    
+    it "should have the stories in the right order" do
+      Story.newest.should == [@latest_story, @middle_story, @earliest_story]
+    end
+
+  end
+  
+  describe "top" do
+    
+    before(:each) do
+      @low_story          = @user.stories.create!(:title => "low", :link => "http://lowstory.com", 
+                                                  :created_at => Time.now, :score => 10)
+      @top_story          = @user.stories.create!(:title => "top", :link => "http://topstory.com", 
+                                                  :created_at => Time.now - 5.days, :score => 30)
+    
+      @latest_med_story   = @user.stories.create!(:title => "latest", :link => "http://lateststory.com", 
+                                                  :created_at => Time.now, :score => 15)
+      @earliest_med_story = @user.stories.create!(:title => "earliest", :link => "http://earlieststory.com", 
+                                                  :created_at => Time.now - 10.days, :score => 15)
+      @middle_med_story   = @user.stories.create!(:title => "middle", :link => "http://middlestory.com", 
+                                                  :created_at => Time.now - 5.days, :score => 15)
+    
+    end
+
+    it "should have a top class method" do
+      Story.should respond_to(:newest)
+    end
+    
+    it "should have the stories in the right order" do
+      Story.top.should == [@top_story, @latest_med_story, @middle_med_story, @earliest_med_story, @low_story]
+    end
+    
+
+  end
+  
+  # -------------------------------------------------
   #  Methods
   # -------------------------------------------------
   

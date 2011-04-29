@@ -1,12 +1,31 @@
 /*---------------------------------------------
   Variables
 -----------------------------------------------*/
-$light_grey: #888;
+
+/* colors */
+$light_grey:  #888;
 $medium_grey: #808080;
 
+$util_blue:   #EFF7FF;
+$border_blue: #5F99CF;
+$header_blue: #CEE3F8;
+
+$orangered:   #FF4013;
+
+/* fonts */
 $small_font: 10px;
 
-
+/* resets */
+@mixin list_reset {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+    
+  li {
+      padding: 0;
+      margin: 0;
+  }
+}
 
 
 /*---------------------------------------------
@@ -91,8 +110,8 @@ a {
 #header {
     height: 63px;
     position: relative;
-    background: #CEE3F8;
-    border-bottom: 1px solid #5F99CF;
+    background: $header_blue;
+    border-bottom: 1px solid $border_blue;
 }
 #quick_links {
     height: 17px;
@@ -105,7 +124,7 @@ a {
     bottom: 0;
     right: 0;
     padding: 4px 8px;
-    background: #EFF7FF;
+    background: $util_blue;
     color: $medium_grey;
     font-size: $small_font;
     border-top-left-radius: 7px;
@@ -114,9 +133,10 @@ a {
 }
 #logo {
     position: absolute;
-    left: 0;
     bottom: 0;
+    left: 0;
     font-size: 24px;
+    width: 160px;
     padding: 2px 4px;
     
     a {
@@ -125,6 +145,34 @@ a {
     a:hover {
         color: #000;
         background: transparent;
+    }
+}
+#sort_tabs {
+    @include list_reset;
+    position: absolute;
+    bottom: 0px;
+    left: 170px;
+    
+    li {
+        float: left;
+        margin-right: 6px;
+        
+        a {
+            display: block;
+            padding: 2px 6px 0;
+            background: $util_blue;
+            font-weight: bold;
+            margin-top: 1px;
+            
+            &.active {
+                border: 1px solid $border_blue;
+                border-bottom-color: #fff;
+                background: #fff;
+                color: $orangered;
+                margin-top: 0;
+                margin-bottom: -1px;
+            }
+        }
     }
 }
 

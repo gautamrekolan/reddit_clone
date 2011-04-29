@@ -19,6 +19,24 @@ class StoriesController < ApplicationController
     end
   end
 
+  def newest    
+    @stories = Story.newest.accessible_by(current_ability, :read).limit(20)
+    
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+  
+  def top    
+    @stories = Story.top.accessible_by(current_ability, :read).limit(20)
+    
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+  
 
   def show
 

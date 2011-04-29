@@ -4,6 +4,9 @@ class Ability
   def initialize(user)
       user ||= User.new
       
+      alias_action :newest, :top,  
+                   :to => :read
+      
       role = (user.role.nil?) ? :dummy : user.role.to_sym
       if self.respond_to?(role, true)
         self.send(role, user)
@@ -43,8 +46,8 @@ class Ability
   
   def guest(user)
     can :read,    Story
+        
     can :create,  User
-    
     can :read,    User
   end
   

@@ -7,9 +7,24 @@ Feature: List stories
     Given there are "20" stories
     When I am on the homepage
     Then I should see "20" stories sorted by "top"
-
+  
   Scenario: Stories are listed in proper order
     # pending
+  
+  Scenario: User sees links to show stories sorted by "new" and "top"
+    Given I am on the homepage
+    Then I should see "top" within "#sort_tabs"
+      And I should see "new" within "#sort_tabs"
+  
+  Scenario: User can navigate to the "new" sorted stories page
+    Given I am on the homepage
+    When I follow "new" within "#sort_tabs"
+    Then I should be on the stories sorted by new page
+  
+  Scenario: User can navigate to the "top" sorted stories page
+    Given I am on the homepage
+    When I follow "top" within "#sort_tabs"
+    Then I should be on the stories sorted by top page
   
   @javascript
   Scenario: User can see past upvoted items

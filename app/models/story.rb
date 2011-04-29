@@ -10,6 +10,9 @@ class Story < ActiveRecord::Base
   has_many :votes
   has_many :comments
 
+  # scopes
+  scope :newest, order("created_at desc")
+  scope :top, order("score desc, created_at desc")
 
   # -------------------------------------------------
   #  Public methods

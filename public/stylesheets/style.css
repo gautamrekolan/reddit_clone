@@ -1,6 +1,9 @@
 /*---------------------------------------------
   Variables
 -----------------------------------------------*/
+/* colors */
+/* fonts */
+/* resets */
 /*---------------------------------------------
   Styles
 -----------------------------------------------*/
@@ -73,8 +76,8 @@ a {
 #header {
   height: 63px;
   position: relative;
-  background: #CEE3F8;
-  border-bottom: 1px solid #5F99CF; }
+  background: #cee3f8;
+  border-bottom: 1px solid #5f99cf; }
 
 #quick_links {
   height: 17px;
@@ -87,7 +90,7 @@ a {
   bottom: 0;
   right: 0;
   padding: 4px 8px;
-  background: #EFF7FF;
+  background: #eff7ff;
   color: gray;
   font-size: 10px;
   border-top-left-radius: 7px;
@@ -96,15 +99,43 @@ a {
 
 #logo {
   position: absolute;
-  left: 0;
   bottom: 0;
+  left: 0;
   font-size: 24px;
+  width: 160px;
   padding: 2px 4px; }
   #logo a {
     color: #000; }
   #logo a:hover {
     color: #000;
     background: transparent; }
+
+#sort_tabs {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  bottom: 0px;
+  left: 170px; }
+  #sort_tabs li {
+    padding: 0;
+    margin: 0; }
+  #sort_tabs li {
+    float: left;
+    margin-right: 6px; }
+    #sort_tabs li a {
+      display: block;
+      padding: 2px 6px 0;
+      background: #eff7ff;
+      font-weight: bold;
+      margin-top: 1px; }
+      #sort_tabs li a.active {
+        border: 1px solid #5f99cf;
+        border-bottom-color: #fff;
+        background: #fff;
+        color: #ff4013;
+        margin-top: 0;
+        margin-bottom: -1px; }
 
 #page {
   padding: 7px; }
