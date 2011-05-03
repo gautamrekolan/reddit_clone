@@ -39,8 +39,7 @@ Given /^there are "([^"]*)" stories$/ do |story_count|
   end
 end
 
-Then /^I should see "([^"]*)" stories sorted by "([^"]*)"$/ do |story_count, sorted_by|
-  visit root_path
+Then /^I should see "([^"]*)" stories$/ do |story_count|
   page.should have_css('.story', :count => story_count.to_i)
 end
 

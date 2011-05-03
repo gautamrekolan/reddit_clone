@@ -3,10 +3,10 @@ Feature: List stories
   I want to be able to see recent stories
   So that I may see the latest stories
 
-  Scenario: See stories sorted by top
-    Given there are "20" stories
+  Scenario: See first 20 stories
+    Given there are "100" stories
     When I am on the homepage
-    Then I should see "20" stories sorted by "top"
+    Then I should see "20" stories
   
   Scenario: Stories are listed in proper order
     # pending
@@ -27,6 +27,15 @@ Feature: List stories
     When I follow "top" within "#sort_tabs"
     Then I should be on the stories sorted by top page
       And I should see "top" within ".active"
+  
+  @javascript
+  Scenario: User can load more stories
+    Given there are "100" stories
+      And I am on the homepage
+    When I follow "Load more"
+      And show me the page
+    Then I should see "40" stories
+  
   
   @javascript
   Scenario: User can see past upvoted items
