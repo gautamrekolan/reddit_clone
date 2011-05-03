@@ -14,11 +14,11 @@ RedditClone::Application.routes.draw do
   match "stories/:id/upvote"   => "stories#upvote",      :as => :upvote
   match "stories/:id/downvote" => "stories#downvote",    :as => :downvote
   
-  match "new" => "stories#newest",    :as => :stories_sorted_by_new
-  match "top" => "stories#top",       :as => :stories_sorted_by_top
+  match "new(/:page)" => "stories#newest",    :as => :stories_sorted_by_new
+  match "top(/:page)" => "stories#top",       :as => :stories_sorted_by_top
 
 
-  root :to => "stories#new"
+  root :to => "stories#newest"
 
   
 end

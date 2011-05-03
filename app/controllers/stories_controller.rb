@@ -20,8 +20,16 @@ class StoriesController < ApplicationController
   end
 
   def newest    
-    @stories = Story.newest.accessible_by(current_ability, :read).limit(20)
-    
+    @current_page = (params[:page] || 1).to_i
+    limit_to      = 20
+    offset_at     = ((@current_page - 1) * limit_to)
+
+    all_stories = Story.newest.accessible_by(current_ability, :read)
+
+    @total_count   = all_stories.count    
+    @stories       = all_stories.offset(offset_at).limit(limit_to).all
+    @current_count = @current_page * limit_to
+
     respond_to do |format|
       format.html
       format.js
@@ -29,7 +37,15 @@ class StoriesController < ApplicationController
   end
   
   def top    
-    @stories = Story.top.accessible_by(current_ability, :read).limit(20)
+    @current_page = (params[:page] || 1).to_i
+    limit_to      = 20
+    offset_at     = ((@current_page - 1) * limit_to)
+  
+    all_stories = Story.top.accessible_by(current_ability, :read)
+  
+    @total_count   = all_stories.count    
+    @stories       = all_stories.offset(offset_at).limit(limit_to).all
+    @current_count = @current_page * limit_to
     
     respond_to do |format|
       format.html
