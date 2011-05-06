@@ -160,6 +160,14 @@ a {
   font-size: 10px;
   color: #888888;
   margin-bottom: 12px; }
+  .story .rank {
+    float: left;
+    margin-top: 12px;
+    color: #C6C6C6;
+    font-family: arial;
+    font-size: medium;
+    text-align: right;
+    width: 20px; }
   .story .scoring {
     float: left;
     padding: 0 10px;

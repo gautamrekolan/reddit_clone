@@ -1,4 +1,9 @@
 <div class="story" id="story-<%= story.id %>">
+  <% if defined?(include_counter) %>
+  <div class="rank">
+    <%= @counter_start + story_counter %>
+  </div>
+  <% end %>
   <div class="scoring">
     <%= link_to "up", upvote_path(story), :remote => true, 
                                           :class => "upvote#{" active" if story.upvoted_by_user?(current_user)}" %>    

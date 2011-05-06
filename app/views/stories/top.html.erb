@@ -1,1 +1,14 @@
-<%= render :partial => 'stories' %>
+<% content_for :js_onload do %>
+
+<% end %>
+
+<%# content %>
+<div id="stories">
+    <%= render :partial => 'story', :collection => @stories, :locals => {:include_counter => true} %>
+</div>
+<div id="more_stories"><%= link_to "Load more", stories_sorted_by_top_path(@current_page+1), :remote => true %></div>
+
+<%# sidebar %>
+<% content_for :sidebar do %>
+  <%= link_to 'New Story', new_story_path %>
+<% end %>

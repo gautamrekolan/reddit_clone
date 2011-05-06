@@ -12,8 +12,8 @@ Feature: User edit profile
   Scenario: User can get to the edit profile page
     Given I am logged in as "caitlin"
       And I am on the homepage
-      And I should see "edit profile" within "#user_nav"
-    When I follow "edit profile"
+      And I should see "preferences" within "#user_nav"
+    When I follow "preferences"
     Then I should be on the edit profile page for "caitlin"
   
   Scenario: User can edit their own profile
@@ -39,4 +39,6 @@ Feature: User edit profile
     When I go to the profile page for "caitlin"
     Then I should see "caitlin" within ".username"
       And I should see "karma" within ".karma"
+      
+
   

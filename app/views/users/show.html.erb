@@ -1,2 +1,7 @@
-<h1 class="username"><%= @user.username %></h1>
-<div class="karma">karma: <%= @user.karma %></div>
+user history
+
+<%# sidebar %>
+<% content_for :sidebar do %>
+  <h1 class="username"><%= @user.username %></h1>
+  <div class="karma">karma: <%= @user.karma %></div>
+<% end %>
