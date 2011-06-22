@@ -1,0 +1,6 @@
+<% unless @stories.empty? %>
+    $("#stories").append("<%= escape_javascript(render(:partial => 'story', :collection => @stories, :locals => {:include_counter => true})) %>");
+    $("#more_stories a").attr('href', '<%= escape_javascript(stories_sorted_by_new_path(@current_page+1)) %>')
+<% else %>
+    $("#stories").html("No results.");
+<% end %>
