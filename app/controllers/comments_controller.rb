@@ -28,9 +28,7 @@ class CommentsController < ApplicationController
       flash[:notice] = "Error creating comment: #{@comment.errors}"
       redirect_to(@comment.story)
     end
- 
-    
-    
+
   end
   
   
@@ -38,15 +36,7 @@ class CommentsController < ApplicationController
   end
 
 
-  def update
-    # @user.attributes = params[:user]
-    # if @user.save
-    #   flash[:notice] = "Successfully updated profile."
-    #   redirect_to user_path
-    # else
-    #   flash[:notice] = "There were errors with your user submissions."
-    #   render :action => "edit"
-    # end  
+  def update 
   end
 
   def show

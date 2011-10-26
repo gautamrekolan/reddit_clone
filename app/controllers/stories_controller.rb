@@ -62,7 +62,7 @@ class StoriesController < ApplicationController
 
 
   def new
-    logger.debug "new"
+    
   end
 
 
